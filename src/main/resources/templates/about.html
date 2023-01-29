@@ -12,8 +12,8 @@
     <h3>
         <ul>
             <li sec:authorize="isAuthenticated()">Hello, <span sec:authentication="name"></span></li>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></li>
-            <li sec:authorize="isAnonymous()"><a th:href="@{/registration}">Create new user</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/auth/login}">Login</a></li>
+            <li sec:authorize="isAnonymous()"><a th:href="@{/auth/registration}">Create new user</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{'/profile/' + ${#authentication.principal.id}}">
                 Редактировать профиль</a></li>
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Log Out</a></li>

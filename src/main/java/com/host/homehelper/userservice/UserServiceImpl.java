@@ -5,6 +5,8 @@ import com.host.homehelper.domain.User;
 import com.host.homehelper.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author Rustam Tastimullin (Rustam.Tastimullin@lanit-tercom.com) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final List<String> allRoles = Role.getAllRoles();
 
 	@Override
 	public boolean createUser(User user) {
@@ -42,10 +45,15 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 	}
 
 	@Override
-	public void editUser(User user, Map<String, String> form, boolean isAdmin) {
+	public void editUser(User user, Map<String, String> form) {
 
 		Set<Role> roles = user.getRoles();
-		if (isAdmin) {
+		var authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		var isAuthorizedForRoleEdit = authorities.stream()
+				.map(GrantedAuthority::getAuthority)
+				.anyMatch(r -> r.equals(Role.ADMIN.getName()) || r.equals(Role.SUPERUSER.getName()));
+
+		if (isAuthorizedForRoleEdit) {
 			roles.clear();
 		}
 
@@ -66,15 +74,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 				}
 				case "lastname" -> {
 					String thisValue = form.get(key);
-					if (StringUtils.isNotBlank(thisValue)) {
-						user.setLastName(thisValue);
-					}
+					user.setLastName(thisValue);
 				}
 				case "phonenumber" -> {
 					String thisValue = form.get(key);
-					if (StringUtils.isNotBlank(thisValue)) {
-						user.setPhoneNumber(thisValue);
-					}
+					user.setPhoneNumber(thisValue);
 				}
 				case "password" -> {
 					String thisValue = form.get(key);
@@ -83,22 +87,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 					}
 				}
 				// ROLES
-				case "USER" -> {
-					String thisValue = form.get(key);
-					if (thisValue.equalsIgnoreCase("on")) {
-						roles.add(Role.USER);
-					}
-				}
-				case "USER_VIP" -> {
-					String thisValue = form.get(key);
-					if (thisValue.equalsIgnoreCase("on")) {
-						roles.add(Role.USER_VIP);
-					}
-				}
-				case "ADMIN" -> {
-					String thisValue = form.get(key);
-					if (thisValue.equalsIgnoreCase("on")) {
-						roles.add(Role.ADMIN);
+				default -> {
+					if (isAuthorizedForRoleEdit) {
+						if (allRoles.contains(key)) {
+							String thisValue = form.get(key);
+							if (thisValue.equalsIgnoreCase("on")) {
+								roles.add(Role.valueOf(key));
+							}
+						}
 					}
 				}
 			}

@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Rustam Tastimullin (Rustam.Tastimullin@lanit-tercom.com) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 public interface UserService {
 
 	boolean createUser(User user);
 
-	void editUser(User user, Map<String, String> form, boolean isAdmin);
+	void editUser(User user, Map<String, String> form);
 
 	void deleteUser(Long userId);
 

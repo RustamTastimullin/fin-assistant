@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author Rustam Tastimullin (Rustam.Tastimullin@lanit-tercom.com) created on 16.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 16.01.2023.
  */
 @Controller
-@PreAuthorize("hasAnyAuthority('ADMIN')")
+@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERUSER')")
 @EnableMethodSecurity
 @RequestMapping("/secure")
 @RequiredArgsConstructor
