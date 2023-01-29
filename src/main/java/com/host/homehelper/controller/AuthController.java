@@ -11,12 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * @author Rustam Tastimullin (Rustam.Tastimullin@lanit-tercom.com) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 @Controller
 @EnableMethodSecurity
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -41,7 +43,7 @@ public class AuthController {
 			model.addAttribute("msg", "User with email: " + user.getEmail() + " already exist.");
 			return "auth/registration";
 		}
-		return "redirect:/login";
+		return "auth/register-success";
 	}
 
 

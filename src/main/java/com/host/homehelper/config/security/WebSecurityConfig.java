@@ -15,14 +15,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- * @author Rustam Tastimullin (Rustam.Tastimullin@lanit-tercom.com) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-	private final String[] defaultEndPoint = {"/", "/index", "/registration"};
+	private final String[] defaultEndPoint = {"/", "/index", "/auth/**"};
 	private final String[] adminEndPoint = {"/secure/**"};
 
 	private final UserDetailsService userDetailsService;
@@ -50,7 +50,7 @@ public class WebSecurityConfig {
 				)
 				.formLogin(
 						login -> login
-								.loginPage("/login")
+								.loginPage("/auth/login")
 								.usernameParameter("email")
 								.defaultSuccessUrl("/about")
 								.permitAll()
@@ -58,6 +58,7 @@ public class WebSecurityConfig {
 				.logout(
 						logout -> logout
 								.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+								.invalidateHttpSession(true)
 								.permitAll()
 				);
 		return http.build();

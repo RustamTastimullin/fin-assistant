@@ -31,7 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
-/READ_NOT_ME_LOL
+/READ_EXAMPLES
 /mvnw
 /mvnw.cmd
 /.mvn/

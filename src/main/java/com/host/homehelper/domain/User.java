@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * @author Rustam Tastimullin (Rustam.Tastimullin@lanit-tercom.com) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 @Getter
 @Setter
