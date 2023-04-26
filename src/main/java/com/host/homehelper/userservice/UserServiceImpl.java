@@ -2,7 +2,9 @@ package com.host.homehelper.userservice;
 
 import com.host.homehelper.domain.Role;
 import com.host.homehelper.domain.User;
+import com.host.homehelper.repository.RoleRepository;
 import com.host.homehelper.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,12 +15,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
+ * Пользовательский сервис.
+ *
  * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 @Service
@@ -27,8 +29,17 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final List<String> allRoles = Role.getAllRoles();
+	private final RoleRepository roleRepository;
+	private static List<Role> rolesList;
 
+	@PostConstruct
+	public void init() {
+		rolesList = roleRepository.findAll();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean createUser(User user) {
 
@@ -38,32 +49,44 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
 		user.setActive(true);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRoles(Collections.singleton(Role.USER));
-
+		// по дефолту создается юзер с правами "USER"
+		var roleUser = rolesList.stream()
+				.filter(role -> role.getId().equals(10L))
+				.findFirst().orElseThrow();
+		user.getRoles().add(roleUser);
 		userRepository.save(user);
+
 		return true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void editUser(User user, Map<String, String> form) {
-
-		Set<Role> roles = user.getRoles();
+		var rolesNameList = rolesList.stream()
+				.map(Role::getName)
+				.toList();
+		var userRoles = user.getRoles();
 		var authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		var isAuthorizedForRoleEdit = authorities.stream()
+		var isAdmin = authorities.stream()
 				.map(GrantedAuthority::getAuthority)
-				.anyMatch(r -> r.equals(Role.ADMIN.getName()) || r.equals(Role.SUPERUSER.getName()));
+				.anyMatch(role -> role.equals("ADMIN"));
+		var isSuperuser = authorities.stream()
+				.map(GrantedAuthority::getAuthority)
+				.anyMatch(r -> r.equals("SUPERUSER"));
 
-		if (isAuthorizedForRoleEdit) {
-			roles.clear();
+		if (isAdmin || isSuperuser) {
+			userRoles.clear();
 		}
 
-		Set<String> formKeySet = form.keySet();
+		var formKeySet = form.keySet();
 		for (String key : formKeySet) {
 			switch (key) {
-				case "username" -> {
+				case "firstname" -> {
 					String thisValue = form.get(key);
 					if (StringUtils.isNotBlank(thisValue)) {
-						user.setUsername(thisValue);
+						user.setFirstName(thisValue);
 					}
 				}
 				case "email" -> {
@@ -88,11 +111,18 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 				}
 				// ROLES
 				default -> {
-					if (isAuthorizedForRoleEdit) {
-						if (allRoles.contains(key)) {
-							String thisValue = form.get(key);
-							if (thisValue.equalsIgnoreCase("on")) {
-								roles.add(Role.valueOf(key));
+					if (key.equals("ADMIN") && !isAdmin) {
+						continue;
+					}
+					if (isAdmin || isSuperuser) {
+						if (rolesNameList.contains(key)) {
+							var thisValue = form.get(key);
+							if ("on".equalsIgnoreCase(thisValue)) {
+								var newRole = rolesList.stream()
+										.filter(role -> role.getName().equals(key))
+										.findFirst()
+										.orElse(null);
+								userRoles.add(newRole);
 							}
 						}
 					}
@@ -103,6 +133,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		userRepository.save(user);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteUser(Long userId) {
 
@@ -115,15 +148,31 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email).orElse(null);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<User> findAllUsers() {
+
 		return userRepository.findAll();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Role> getRolesList() {
+		return rolesList;
+	}
+
 
 	/**
 	 * Security block

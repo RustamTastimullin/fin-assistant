@@ -1,43 +1,71 @@
 package com.host.homehelper.domain;
 
-import org.springframework.security.core.GrantedAuthority;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 /**
+ * Роли, их обозначения и разрешения.
+ *
  * @author Rustam Tastimullin (tastimullin@mail.ru) created on 12.01.2023.
  */
-public enum Role implements GrantedAuthority {
+@Getter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "roles")
+public class Role {
 
-	USER(1L, "USER"),
-	SUPERUSER(777L, "SUPERUSER"),
-	USER_1(3L, "USER_1"),
-	USER_2(4L, "USER_2"),
-	ADMIN(666L, "ADMIN");
-	private final Long id;
-	private final String name;
+	@Id
+	@Column(name = "id", nullable = false, unique = true, updatable = false)
+	private Long id;
 
-	Role(Long id, String name) {
+	@Column(name = "name", nullable = false, unique = true, updatable = false, length = 20)
+	private String name;
+
+	@Column(name = "authorities", nullable = false, updatable = false)
+	private String authorities;
+
+	@Getter(AccessLevel.NONE)
+	@ToString.Exclude
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE})
+	private Set<User> users = new HashSet<>();
+
+	public Role(Long id, String name, String authorities) {
 		this.id = id;
 		this.name = name;
+		this.authorities = authorities;
 	}
 
 	@Override
-	public String getAuthority() {
-		return name();
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof Role role)) {
+			return false;
+		}
+		return getId().equals(role.getId());
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public static List<String> getAllRoles() {
-		return Arrays.stream(Role.values()).map(Role::getName).collect(Collectors.toList());
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
 	}
 }

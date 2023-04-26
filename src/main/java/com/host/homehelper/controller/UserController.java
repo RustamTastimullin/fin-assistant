@@ -41,14 +41,19 @@ public class UserController {
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERUSER') or principal.id == #user.id")
 	@GetMapping(value = "{user}")
 	public String userEditForm(@PathVariable User user, Model model) {
+		var rolesNameList = userService.getRolesList().stream().map(Role::getName).toList();
+		var userRoles = user.getRoles().stream()
+				.map(Role::getName)
+				.toList();
 		model.addAttribute("user", user);
-		model.addAttribute("roles", Role.values());
+		model.addAttribute("userRoles", userRoles);
+		model.addAttribute("roles", rolesNameList);
 		return "user-service/user-edit";
 	}
 
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERUSER') or principal.id == #user.id")
 	@PostMapping("{user}")
-	@Transactional(rollbackOn = Exception.class)
+	@Transactional
 	public String editUser(
 			@RequestParam Map<String, String> form,
 			@RequestParam("userId") User user) {
@@ -58,7 +63,7 @@ public class UserController {
 
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERUSER') or principal.id == #user.id")
 	@DeleteMapping(value = "{user}/delete")
-	@Transactional(rollbackOn = Exception.class)
+	@Transactional
 	public String deleteUser(
 			@RequestParam("userId") User user
 	) {

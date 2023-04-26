@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="alter_test_roles" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from roles
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/testdata/roles_add_values.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+
+	<changeSet id="alter_test_users" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from users
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/testdata/users_add_values.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+
+	<changeSet id="alter_test_users_roles" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from users_roles
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/testdata/users_roles_add_values.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+
+</databaseChangeLog>

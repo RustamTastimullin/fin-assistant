@@ -37,7 +37,7 @@
                 <th>User name:</th>
                 <td>
                     <label>
-                        <input type="text" name="username" th:value="${user.username}">
+                        <input type="text" name="firstname" th:value="${user.firstName}">
                     </label>
                 </td>
             </tr>
@@ -69,7 +69,7 @@
                 <th>User role:</th>
                 <td>
                     <label th:each="role : ${roles}">
-                        <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(user.roles, role)}"
+                        <input type="checkbox" th:name="${role}" th:checked="${#lists.contains(userRoles, role)}"
                                th:utext="${role}"/><br>
                     </label>
                 </td>
