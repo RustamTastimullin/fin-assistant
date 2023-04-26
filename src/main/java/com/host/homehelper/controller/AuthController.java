@@ -35,7 +35,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/registration")
-	@Transactional(rollbackOn = Exception.class)
+	@Transactional
 	public String createUser(@Valid @ModelAttribute("user") User user,
 							 Model model) {
 

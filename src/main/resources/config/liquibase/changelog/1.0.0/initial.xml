@@ -3,4 +3,79 @@
 				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
+	<changeSet id="create-roles" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="roles"/>
+			</not>
+		</preConditions>
+		<createTable tableName="roles">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="name" type="varchar(20)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="roles_const_name"/>
+			</column>
+			<column name="authorities" type="varchar">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-users" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="users"/>
+			</not>
+		</preConditions>
+		<createTable tableName="users">
+			<column name="id" type="bigint">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="email" type="varchar(45)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="users_const_email"/>
+			</column>
+			<column name="first_name" type="varchar(20)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="last_name" type="varchar(20)"/>
+			<column name="phone_number" type="varchar(20)"/>
+			<column name="is_active" type="boolean"/>
+			<column name="password" type="varchar(64)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="create-users_id_seq" author="trd">
+		<preConditions>
+			<not>
+				<sequenceExists sequenceName="users_id_seq"/>
+			</not>
+		</preConditions>
+		<createSequence sequenceName="users_id_seq" minValue="1" incrementBy="1" startValue="1"/>
+	</changeSet>
+
+	<changeSet id="create-users_roles" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="users_roles"/>
+			</not>
+		</preConditions>
+		<createTable tableName="users_roles">
+			<column name="user_id" type="bigint">
+				<constraints nullable="false" primaryKey="true"
+							 primaryKeyName="pk_users_roles"
+							 foreignKeyName="fk_users_roles_user_id"
+							 references="users"/>
+			</column>
+			<column name="role_id" type="bigint">
+				<constraints nullable="false" primaryKey="true"
+							 primaryKeyName="pk_users_roles"
+							 foreignKeyName="fk_users_roles_role_id"
+							 references="roles"/>
+			</column>
+		</createTable>
+	</changeSet>
+
 </databaseChangeLog>

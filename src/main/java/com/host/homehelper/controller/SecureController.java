@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SecureController {
 
 	@GetMapping
-	public String adminTmp() {
+	public String adminPage() {
 		return "secure/admin-page";
 	}
 

@@ -4,4 +4,7 @@
 
 	<include file="changelog/1.0.0/initial.xml" relativeToChangelogFile="true"/>
 
+	<!--	загрузка тестовых данных-->
+	<include file="changelog/1.0.0/loadTestData.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

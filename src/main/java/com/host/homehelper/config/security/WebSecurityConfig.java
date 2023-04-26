@@ -45,7 +45,7 @@ public class WebSecurityConfig {
 				.authorizeHttpRequests((authorize) ->
 						authorize
 								.requestMatchers(defaultEndPoint).permitAll()
-								.requestMatchers(adminEndPoint).hasAnyAuthority(Role.ADMIN.name())
+								.requestMatchers(adminEndPoint).hasAnyAuthority("ADMIN", "SUPERUSER")
 								.anyRequest().authenticated()
 				)
 				.formLogin(
