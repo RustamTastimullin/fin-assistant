@@ -8,4 +8,4 @@ values (-10, 'test@test.ru', 'ADMIN', null, null, true,
        (nextval('simple_helper.users_id_seq'), 'test4@test.ru', 'USER', null, null, true,
         '$2a$12$9dytKJq7TKBriCO7MGhww.r7.0bos4EzJBkTB.kw11L8oUHv0gsoe'),
        (nextval('simple_helper.users_id_seq'), 'test5@test.ru', 'USER2', null, null, true,
-        '$2a$12$9dytKJq7TKBriCO7MGhww.r7.0bos4EzJBkTB.kw11L8oUHv0gsoe');
+        '$2a$12$9dytKJq7TKBriCO7MGhww.r7.0bos4EzJBkTB.kw11L8oUHv0gsoe')

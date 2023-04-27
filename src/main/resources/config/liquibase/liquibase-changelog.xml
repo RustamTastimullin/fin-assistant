@@ -3,6 +3,7 @@
 				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
 	<include file="changelog/1.0.0/initial.xml" relativeToChangelogFile="true"/>
+	<include file="changelog/1.0.0/currency_initial.xml" relativeToChangelogFile="true"/>
 
 	<!--	загрузка тестовых данных-->
 	<include file="changelog/1.0.0/loadTestData.xml" relativeToChangelogFile="true"/>
