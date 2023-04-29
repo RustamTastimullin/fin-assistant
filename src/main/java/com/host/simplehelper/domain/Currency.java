@@ -35,19 +35,19 @@ public class Currency {
 	private LocalDate date;
 
 	@Column(name = "usd_nominal")
-	private Integer usd_nominal;
+	private Long usd_nominal;
 
 	@Column(name = "usd")
 	private BigDecimal usd;
 
 	@Column(name = "eur_nominal")
-	private Integer eur_nominal;
+	private Long eur_nominal;
 
 	@Column(name = "eur")
 	private BigDecimal eur;
 
 	@Column(name = "hkd_nominal")
-	private Integer hkd_nominal;
+	private Long hkd_nominal;
 
 	@Column(name = "hkd")
 	private BigDecimal hkd;

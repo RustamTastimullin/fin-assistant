@@ -2,14 +2,14 @@ package com.host.simplehelper.service;
 
 import com.host.simplehelper.domain.Currency;
 import com.host.simplehelper.domain.CurrencyDTO;
-import com.host.simplehelper.mapper.CurrencyMapper;
 import com.host.simplehelper.parser.xml.CurrencyParser;
 import com.host.simplehelper.repository.CurrencyRepository;
 import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.JAXBException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
+import java.net.MalformedURLException;
 import java.time.LocalDate;
 
 /**
@@ -19,47 +19,45 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class CurrencyServiceImpl implements CurrencyService {
 
-	private final DataValidator dataValidator;
+	private final DateFormatter dateFormatter;
 	private final CurrencyRepository currencyRepository;
 	private final CurrencyParser currencyParser;
-	private final CurrencyMapper currencyMapper;
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public @NotNull CurrencyDTO getCurrencyByDate(LocalDate date) throws ParseException {
-
-		var formattedData = dataValidator.validateAndFormatData(date);
+	public @NotNull CurrencyDTO getCurrencyByDate(LocalDate date) throws MalformedURLException, JAXBException {
 
 		// Проверим что данные за эту дату не пустые
 		var currencyOptional = currencyRepository.findById(date);
 		if (currencyOptional.isPresent() && validateEntityHasNoNullFields(currencyOptional.get())) {
 			// если данные корректны, тогда не нужно парсить данные на дату еще раз
-			return currencyMapper.currencyToCurrencyDTO(currencyOptional.get(), formattedData);
+			var dateForView = dateFormatter.formatForOutputView(currencyOptional.get().getDate());
+			return new CurrencyDTO(dateForView, currencyOptional.get());
 		}
 
 		// парсим валюты на заданную дату
-		var currencyDTO = currencyParser.parseValutesByDateAndReturnDTO(formattedData);
+		var formattedDateForOarsing = dateFormatter.formatForParsing(date);
+		var valCurs = currencyParser.parseValutesByDateAndReturnValCurs(formattedDateForOarsing);
+		// создаем экземпляр сущности и мапим в него полученные данные
+		var currency = currencyParser.mapCurrencyFromValCurse(valCurs);
 
-		var currency = currencyMapper.currencyDTOToCurrency(currencyDTO, date);
-		currencyRepository.save(currency);
-
-		return currencyDTO;
+		return new CurrencyDTO(valCurs.getDate(), currencyRepository.save(currency));
 	}
 
 	/**
 	 * Валидируем данные в сущности (все поля должны быть не пустые).
 	 *
-	 * @param referenceEntity проверяемая сущность
+	 * @param entity проверяемая сущность
 	 * @return результат проверки полей на null
 	 */
-	boolean validateEntityHasNoNullFields(Currency referenceEntity) {
-		return referenceEntity.getUsd_nominal() != null
-				&& referenceEntity.getUsd() != null
-				&& referenceEntity.getEur_nominal() != null
-				&& referenceEntity.getEur() != null
-				&& referenceEntity.getHkd_nominal() != null
-				&& referenceEntity.getHkd() != null;
+	boolean validateEntityHasNoNullFields(Currency entity) {
+		return entity.getUsd_nominal() != null
+				&& entity.getUsd() != null
+				&& entity.getEur_nominal() != null
+				&& entity.getEur() != null
+				&& entity.getHkd_nominal() != null
+				&& entity.getHkd() != null;
 	}
 
 }

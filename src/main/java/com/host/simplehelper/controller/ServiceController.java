@@ -1,6 +1,7 @@
 package com.host.simplehelper.controller;
 
 import com.host.simplehelper.service.CurrencyService;
+import jakarta.xml.bind.JAXBException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
 /**
+ * Контроллер сервиса валют.
+ *
  * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
  */
 @Controller
@@ -32,17 +36,18 @@ public class ServiceController {
 
 	@PostMapping
 	@Transactional
-	public String servicePost(Model model, @RequestParam LocalDate data) throws ParseException {
+	public String servicePost(Model model, @RequestParam LocalDate data)
+			throws ParseException, MalformedURLException, JAXBException {
 
-		var currencyByDateDTO = currencyService.getCurrencyByDate(data);
+		var currencyDTO = currencyService.getCurrencyByDate(data);
 
-		model.addAttribute("currencyData", currencyByDateDTO.getFormattedDate());
-		model.addAttribute("currencyUSDNominal", currencyByDateDTO.getUsd_nominal());
-		model.addAttribute("currencyUSD", currencyByDateDTO.getUsd());
-		model.addAttribute("currencyEURNominal", currencyByDateDTO.getEur_nominal());
-		model.addAttribute("currencyEUR", currencyByDateDTO.getEur());
-		model.addAttribute("currencyHKDNominal", currencyByDateDTO.getHkd_nominal());
-		model.addAttribute("currencyHKD", currencyByDateDTO.getHkd());
+		model.addAttribute("currencyData", currencyDTO.getFormattedDate());
+		model.addAttribute("currencyUSDNominal", currencyDTO.getCurrency().getUsd_nominal());
+		model.addAttribute("currencyUSD", currencyDTO.getCurrency().getUsd());
+		model.addAttribute("currencyEURNominal", currencyDTO.getCurrency().getEur_nominal());
+		model.addAttribute("currencyEUR", currencyDTO.getCurrency().getEur());
+		model.addAttribute("currencyHKDNominal", currencyDTO.getCurrency().getHkd_nominal());
+		model.addAttribute("currencyHKD", currencyDTO.getCurrency().getHkd());
 
 		return "service/service";
 	}
