@@ -6,8 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
+/**
+ * ДТО для передачи в контроллер.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,16 +18,7 @@ public class CurrencyDTO {
 	@NotNull
 	private String formattedDate;
 
-	private Integer usd_nominal;
-
-	private BigDecimal usd;
-
-	private Integer eur_nominal;
-
-	private BigDecimal eur;
-
-	private Integer hkd_nominal;
-
-	private BigDecimal hkd;
+	@NotNull
+	private Currency currency;
 
 }

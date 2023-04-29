@@ -1,24 +1,35 @@
 package com.host.simplehelper.parser.xml;
 
-import com.host.simplehelper.domain.CurrencyDTO;
+import com.host.simplehelper.domain.Currency;
+import com.host.simplehelper.domain.ValCurs;
 import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.JAXBException;
 
-import java.text.ParseException;
+import java.net.MalformedURLException;
 
 /**
  * Парсер валют.
- * Парсит данные на заданную дату из XML по адресу:
- * <a href="http://www.cbr.ru/scripts/XML_daily.asp?date_req=">http://www.cbr.ru/scripts/XML_daily.asp?date_req=01/01/2022</a>
+ * Парсит данные на заданную дату из XML по адресу
+ * <a href="http://www.cbr.ru/development/sxml/">source</a>
  */
 public interface CurrencyParser {
 
 	/**
-	 * Парсер валют.
+	 * Парсер валют.<br/>
+	 * Парсит валюты на указанную дату по схеме.
 	 *
 	 * @param date дата на которую запрашивается информация о валютах.
-	 * @return заполненная ДТО.
+	 * @return ДТО с валютами.
 	 */
 	@NotNull
-	CurrencyDTO parseValutesByDateAndReturnDTO(String date) throws IllegalArgumentException, ParseException;
+	ValCurs parseValutesByDateAndReturnValCurs(String date) throws MalformedURLException, JAXBException;
+
+	/**
+	 * Создает экземпляр сущности Currency из всего списка валют.
+	 *
+	 * @param source список валют
+	 * @return экземпляр сущности без даты
+	 */
+	Currency mapCurrencyFromValCurse(ValCurs source);
 
 }

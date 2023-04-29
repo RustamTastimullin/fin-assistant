@@ -13,11 +13,11 @@
 			<column name="date" type="date">
 				<constraints primaryKey="true" nullable="false"/>
 			</column>
-			<column name="usd_nominal" type="integer"/>
+			<column name="usd_nominal" type="bigint"/>
 			<column name="usd" type="decimal"/>
-			<column name="eur_nominal" type="integer"/>
+			<column name="eur_nominal" type="bigint"/>
 			<column name="eur" type="decimal"/>
-			<column name="hkd_nominal" type="integer"/>
+			<column name="hkd_nominal" type="bigint"/>
 			<column name="hkd" type="decimal"/>
 		</createTable>
 	</changeSet>
