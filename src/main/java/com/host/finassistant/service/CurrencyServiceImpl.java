@@ -40,10 +40,11 @@ public class CurrencyServiceImpl implements CurrencyService {
 		}
 
 		// парсим валюты на заданную дату
-		var formattedDateForOarsing = dateFormatter.formatForParsing(date);
-		var valCurs = currencyParser.parseValutesByDateAndReturnValCurs(formattedDateForOarsing);
+		var formattedDateForParsing = dateFormatter.formatForParsing(date);
+		var valCurs = currencyParser.parseValutesByDateAndReturnValCurs(formattedDateForParsing);
 		// создаем экземпляр сущности и мапим в него полученные данные
 		var currency = currencyParser.mapCurrencyFromValCurse(valCurs);
+		// залогировать если в сущности не хватает полей
 
 		return new CurrencyDTO(valCurs.getDate(), currencyRepository.save(currency));
 	}
@@ -54,7 +55,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 	 * @param entity проверяемая сущность
 	 * @return результат проверки полей на null
 	 */
-	boolean validateEntityHasNoNullFields(Currency entity) {
+	private boolean validateEntityHasNoNullFields(Currency entity) {
 		return entity.getUsd_nominal() != null
 				&& entity.getUsd() != null
 				&& entity.getEur_nominal() != null

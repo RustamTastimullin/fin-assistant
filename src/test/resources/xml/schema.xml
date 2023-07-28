@@ -1,0 +1,218 @@
+<response>
+	<count>500</count>
+	<available>500</available>
+	<limit>1</limit>
+	<offset>0</offset>
+	<data>
+		<item>
+			<ticker>A</ticker>
+			<name>Agilent</name>
+			<type>Обыкновенная</type>
+			<company>Agilent Technologies Inc.</company>
+			<logo>https://beststocks.ru/api/file/stock/logos/A.png</logo>
+			<ogImage>https://beststocks.ru/api/stocks/A/og-image</ogImage>
+			<description>Agilent Technologies Inc. is a global leader in life sciences, diagnostics, and applied
+				chemical markets, delivering insight and innovation toward improving the quality of life. Agilent
+				instruments, software, services, solutions, and people provide trusted answers to customers' most
+				challenging questions. The company generated revenue of $5.34 billion in fiscal year 2020 and employs
+				16,400 people worldwide.
+			</description>
+			<mobileDescription>Agilent Technologies Inc. is a global leader in life sciences, diagnostics, and applied
+				chemical markets, delivering insight and innovation toward improving the quality of life. Agilent
+				instruments, software, services, solutions, and people provide trusted answers to customers' most
+				challenging questions. The company generated revenue of $5.34 billion in fiscal year 2020 and employs
+				16,400 people worldwide.
+			</mobileDescription>
+			<industry>
+				<name>Testing Laboratories</name>
+				<slug>testing-laboratories</slug>
+			</industry>
+			<exchange>NYSE</exchange>
+			<employees>16400</employees>
+			<ceo>Michael McMullen</ceo>
+			<site>www.agilent.com</site>
+			<currency>USD</currency>
+			<tags>
+				<item>
+					<name>Biotechnology</name>
+					<slug>biotechnology</slug>
+				</item>
+				<item>
+					<name>Health Technology</name>
+					<slug>health-technology</slug>
+				</item>
+				<item>
+					<name>Medical Specialties</name>
+					<slug>medical-specialties</slug>
+				</item>
+				<item>
+					<name>Professional, Scientific, & Technical Services</name>
+					<slug>professional-scientific-and-technical-services</slug>
+				</item>
+				<item>
+					<name>Testing Laboratories</name>
+					<slug>testing-laboratories</slug>
+				</item>
+			</tags>
+			<sector>Healthcare</sector>
+			<country>
+				<alpha2Code>US</alpha2Code>
+				<name>США</name>
+			</country>
+			<address>
+				<address>5301 Stevens Creek Blvd</address>
+				<state>California</state>
+				<city>Santa Clara</city>
+				<zip>95051-7201</zip>
+				<country>United States</country>
+				<phone>14083458886</phone>
+			</address>
+			<isin>US00846U1016</isin>
+			<analysis>
+				<smartScore>7</smartScore>
+				<topScoreSince/>
+				<analystConsensus>ModerateBuy</analystConsensus>
+				<investorSentiment>Positive</investorSentiment>
+				<bloggerConsensus>Bullish</bloggerConsensus>
+				<newsSentiment>VeryBullish</newsSentiment>
+				<insiderTrend/>
+				<hedgeFundTrend>Decreased</hedgeFundTrend>
+				<priceTarget>142.08</priceTarget>
+				<pricePotential>0.1838</pricePotential>
+				<recommendations>
+					<RecommendationCounter>
+						<buy>9</buy>
+						<sell>1</sell>
+						<hold>4</hold>
+					</RecommendationCounter>
+				</recommendations>
+				<lowPriceTarget>126</lowPriceTarget>
+				<highPriceTarget>160</highPriceTarget>
+				<recommendationConsensus>Buy</recommendationConsensus>
+				<recommendationCount>14</recommendationCount>
+				<sma>Negative</sma>
+				<hedgeFundTrendValue>-322196</hedgeFundTrendValue>
+				<bloggerSectorAvg>0.6591</bloggerSectorAvg>
+				<bloggerBullishSentiment>0.76</bloggerBullishSentiment>
+				<insidersLast3MonthsSum>0</insidersLast3MonthsSum>
+				<newsSentimentsBearishPercent>0</newsSentimentsBearishPercent>
+				<newsSentimentsBullishPercent>1</newsSentimentsBullishPercent>
+				<investorHoldingChangeLast7Days>-0.0048256</investorHoldingChangeLast7Days>
+				<investorHoldingChangeLast30Days>0.0201165</investorHoldingChangeLast30Days>
+				<fundamentalsReturnOnEquity>0.247821</fundamentalsReturnOnEquity>
+				<fundamentalsAssetGrowth>0.032233</fundamentalsAssetGrowth>
+				<technicalsTwelveMonthsMomentum>0.0131</technicalsTwelveMonthsMomentum>
+				<topAnalystsPriceTarget>142.33</topAnalystsPriceTarget>
+				<topAnalystsPricePotential>0.1859</topAnalystsPricePotential>
+				<topAnalystsRecommendations>
+					<RecommendationCounter>
+						<buy>5</buy>
+						<sell>1</sell>
+						<hold>2</hold>
+					</RecommendationCounter>
+				</topAnalystsRecommendations>
+				<topAnalystsLowPriceTarget>126</topAnalystsLowPriceTarget>
+				<topAnalystsHighPriceTarget>160</topAnalystsHighPriceTarget>
+				<topAnalystsRecommendationConsensus>Buy</topAnalystsRecommendationConsensus>
+				<topAnalystsRecommendationCount>8</topAnalystsRecommendationCount>
+				<topAnalystsLastRecommendationDate>2023-04-21</topAnalystsLastRecommendationDate>
+			</analysis>
+			<statistic>
+				<capitalization>34564899520</capitalization>
+				<earningsPerShare>4.55</earningsPerShare>
+				<sma50>122.7196</sma50>
+				<sma200>137.6472</sma200>
+				<beta>1.0812163365184</beta>
+				<week52high>160.265</week52high>
+				<week52low>113.02</week52low>
+				<ebitda>2021000000</ebitda>
+				<peRatio>25.718681318681</peRatio>
+				<totalCash>1175000000</totalCash>
+				<currentDebt>2733000000</currentDebt>
+				<revenue>7040000000</revenue>
+				<forwardPERatio>24.978590795836</forwardPERatio>
+				<week52highDate>2022-12-13</week52highDate>
+				<week52lowDate>2022-07-14</week52lowDate>
+				<nextEarningsDate>2022-11-22</nextEarningsDate>
+				<revenuePerShare>23.834028492498</revenuePerShare>
+				<revenuePerEmployee>483481.48</revenuePerEmployee>
+				<debtToEquity>0.47275557861962</debtToEquity>
+				<profitMargin>0.19190340909091</profitMargin>
+				<sharesOutstanding>295376000</sharesOutstanding>
+				<float>0.99669938654461</float>
+				<previousVolume>1282033</previousVolume>
+				<avg10Volume>1724204.1</avg10Volume>
+				<avg30Volume>2226464.5666667</avg30Volume>
+				<dividendYield>0.007375</dividendYield>
+				<nextDividendDate/>
+				<nextBuyBeforeDate/>
+				<exDividendDate>2023-06-30</exDividendDate>
+				<maxChangePercent>4.6366537696461</maxChangePercent>
+				<year5ChangePercent>0.86729708431836</year5ChangePercent>
+				<year2ChangePercent>-0.20754464584309</year2ChangePercent>
+				<year1ChangePercent>-0.0063737001006374</year1ChangePercent>
+				<ytdChangePercent>-0.20828600066823</ytdChangePercent>
+				<month6ChangePercent>-0.24289091954757</month6ChangePercent>
+				<month3ChangePercent>-0.14368314541775</month3ChangePercent>
+				<month1ChangePercent>-0.00050615825881559</month1ChangePercent>
+				<day30ChangePercent>-0.016110280684272</day30ChangePercent>
+				<day5ChangePercent>-0.0070398927254442</day5ChangePercent>
+				<enterpriseValue>37003120000</enterpriseValue>
+				<enterpriseValueToRevenue>5.256125</enterpriseValueToRevenue>
+				<grossProfit>3843000000</grossProfit>
+				<totalRevenue>6527000000</totalRevenue>
+				<priceToSales>4.9097868636364</priceToSales>
+				<priceToBook>7.14</priceToBook>
+				<pegRatio>4.9828909802263</pegRatio>
+				<peHigh>24.009122154851</peHigh>
+				<peLow>17.830953824627</peLow>
+				<putCallRatio>0.92818408324784</putCallRatio>
+				<ipoDate>1999-11-18</ipoDate>
+				<dcf>149.974</dcf>
+			</statistic>
+			<splits>
+				<Split>
+					<date>2020-08-31</date>
+					<from>1</from>
+					<to>4</to>
+					<ratio>0.25</ratio>
+				</Split>
+			</splits>
+			<inSpbe>true</inSpbe>
+			<indexableDescription>false</indexableDescription>
+			<status>
+				<value>active</value>
+				<newTicker/>
+			</status>
+			<prices>
+				<open>
+					<value>0</value>
+					<time>2023-07-13 00:00:00</time>
+				</open>
+				<close>
+					<value>119.94</value>
+					<time>2023-07-12 00:00:00</time>
+				</close>
+				<low>
+					<value>0</value>
+				</low>
+				<high>
+					<value>0</value>
+				</high>
+				<current>
+					<value>120.02</value>
+					<priceChange>0.08</priceChange>
+					<priceChangePercent>0.0007</priceChangePercent>
+					<time>2023-07-13 18:18:42</time>
+				</current>
+				<volume>
+					<value>288909</value>
+				</volume>
+			</prices>
+		</item>
+	</data>
+	<sort>
+		<by/>
+		<order>asc</order>
+	</sort>
+</response>
