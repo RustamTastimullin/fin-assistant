@@ -1,4 +1,4 @@
-insert into simple_helper.users_roles(user_id, role_id)
+insert into users_roles(user_id, role_id)
 VALUES (-10, 666),
        (-10, 10), --        для админа добавим еще 1 роль (для проверки)
        (-20, 777),
