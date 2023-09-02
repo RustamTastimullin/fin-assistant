@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fin_assistant?currentSchema=fin_assistant
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    generate-ddl: false
+    show-sql: false
+    openInView: false
+    properties:
+      hibernate:
+        format_sql: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

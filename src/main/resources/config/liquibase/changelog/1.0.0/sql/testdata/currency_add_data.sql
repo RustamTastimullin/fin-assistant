@@ -1,4 +1,4 @@
-insert into simple_helper.currency(date, usd_nominal, usd, eur_nominal, eur, hkd_nominal, hkd)
+insert into currency(date, usd_nominal, usd, eur_nominal, eur, hkd_nominal, hkd)
 VALUES ('2023-04-03', 1, '77.32', 1, '84.11', 10, '98.67'),
        ('2023-04-04', 1, '77.95', 1, '84.62', 10, '99.47'),
        ('2023-04-05', 1, '79.36', 1, '86.72', 1, '10.12'),

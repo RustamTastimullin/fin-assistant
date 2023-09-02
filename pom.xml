@@ -4,10 +4,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.host</groupId>
-	<artifactId>simple-helper</artifactId>
+	<artifactId>fin-assistant</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>simple-helper</name>
-	<description>Sandbox for different things</description>
+	<name>fin-assistant</name>
+	<description>Demo app for finance assisting</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -200,7 +200,7 @@
 					<sources>
 						<source>src/main/resources/schema/xsd/ValCurs.xsd</source>
 					</sources>
-					<packageName>com.host.simplehelper.domain</packageName>
+					<packageName>com.host.finassistant.domain</packageName>
 					<clearOutputDir>true</clearOutputDir>
 				</configuration>
 			</plugin>
