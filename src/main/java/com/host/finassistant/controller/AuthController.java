@@ -1,7 +1,7 @@
 package com.host.finassistant.controller;
 
 import com.host.finassistant.domain.entity.User;
-import com.host.finassistant.userservice.UserService;
+import com.host.finassistant.userservice.UserManagementService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class AuthController {
 
-	private final UserService userService;
+	private final UserManagementService userManagementService;
 
 	@GetMapping("/login")
 	public String login() {
@@ -41,7 +41,7 @@ public class AuthController {
 	public String createUser(@Valid @ModelAttribute("user") User user,
 							 Model model) {
 
-		if (!userService.createUser(user)) {
+		if (!userManagementService.createUser(user)) {
 			model.addAttribute("msg", "User with email: " + user.getEmail() + " already exist.");
 			return "auth/registration";
 		}

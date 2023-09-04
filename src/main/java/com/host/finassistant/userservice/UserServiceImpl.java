@@ -1,191 +1,53 @@
 package com.host.finassistant.userservice;
 
-import com.host.finassistant.domain.entity.Role;
 import com.host.finassistant.domain.entity.User;
-import com.host.finassistant.repository.RoleRepository;
 import com.host.finassistant.repository.UserRepository;
-import jakarta.annotation.PostConstruct;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /**
- * Пользовательский сервис.
+ * Сервис управления сущностью User.
  *
- * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 03-Sep-23
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserDetailsService, UserService {
+public class UserServiceImpl implements UserService {
 
-	private static List<Role> rolesList;
-	private final UserRepository userRepository;
-	private final PasswordEncoder passwordEncoder;
-	private final RoleRepository roleRepository;
+	private final UserRepository repository;
 
-	@PostConstruct
-	public void init() {
-		rolesList = roleRepository.findAll();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
+	@NotNull
 	@Override
-	public boolean createUser(User user) {
-
-		if (findByEmail(user.getEmail()) != null) {
-			return false;
-		}
-
-		user.setActive(true);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		// по дефолту создается юзер с правами "USER"
-		var roleUser = rolesList.stream()
-				.filter(role -> role.getId().equals(10L))
-				.findFirst().orElseThrow();
-		user.getRoles().add(roleUser);
-		userRepository.save(user);
-
-		return true;
+	public Optional<User> findUserByEmail(@NotNull String email) {
+		return repository.findByEmail(email);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public void editUser(User user, Map<String, String> form) {
-		var rolesNameList = rolesList.stream()
-				.map(Role::getName)
-				.toList();
-		var userRoles = user.getRoles();
-		var authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		var isAdmin = authorities.stream()
-				.map(GrantedAuthority::getAuthority)
-				.anyMatch(role -> role.equals("ADMIN"));
-		var isSuperuser = authorities.stream()
-				.map(GrantedAuthority::getAuthority)
-				.anyMatch(r -> r.equals("SUPERUSER"));
-
-		if (isAdmin || isSuperuser) {
-			userRoles.clear();
-		}
-
-		var formKeySet = form.keySet();
-		for (String key : formKeySet) {
-			switch (key) {
-				case "firstname" -> {
-					String thisValue = form.get(key);
-					if (StringUtils.isNotBlank(thisValue)) {
-						user.setFirstName(thisValue);
-					}
-				}
-				case "email" -> {
-					String thisValue = form.get(key);
-					if (StringUtils.isNotBlank(thisValue)) {
-						user.setEmail(thisValue);
-					}
-				}
-				case "lastname" -> {
-					String thisValue = form.get(key);
-					user.setLastName(thisValue);
-				}
-				case "phonenumber" -> {
-					String thisValue = form.get(key);
-					user.setPhoneNumber(thisValue);
-				}
-				case "password" -> {
-					String thisValue = form.get(key);
-					if (StringUtils.isNotBlank(thisValue)) {
-						user.setPassword(passwordEncoder.encode(thisValue));
-					}
-				}
-				// ROLES
-				default -> {
-					if (key.equals("ADMIN") && !isAdmin) {
-						continue;
-					}
-					if (isAdmin || isSuperuser) {
-						if (rolesNameList.contains(key)) {
-							var thisValue = form.get(key);
-							if ("on".equalsIgnoreCase(thisValue)) {
-								var newRole = rolesList.stream()
-										.filter(role -> role.getName().equals(key))
-										.findFirst()
-										.orElse(null);
-								userRoles.add(newRole);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		userRepository.save(user);
+	public void deleteById(@NotNull Long userId) {
+		repository.deleteById(userId);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteUser(Long userId) {
-
-		if (userRepository.findById(userId).isPresent()) {
-			try {
-				userRepository.deleteById(userId);
-			} catch (Exception e) {
-				throw new RuntimeException("Can't delete user with id= " + userId, e.getCause());
-			}
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email).orElse(null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
+	@NotNull
 	@Override
 	public List<User> findAllUsers() {
-
-		return userRepository.findAll();
+		return repository.findAll();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@NotNull
 	@Override
-	public List<Role> getRolesList() {
-		return rolesList;
+	public User saveUser(@NotNull User user) {
+		return repository.save(user);
 	}
 
-
-	/**
-	 * Security block
-	 */
-
+	@NotNull
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-		User user = findByEmail(email);
-		if (user != null) {
-			return user;
-		} else {
-			throw new UsernameNotFoundException("Invalid email or password.");
-		}
+	public Optional<User> findUserById(@NotNull Long userId) {
+		return repository.findById(userId);
 	}
 }

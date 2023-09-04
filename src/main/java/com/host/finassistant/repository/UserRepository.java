@@ -1,11 +1,9 @@
 package com.host.finassistant.repository;
 
 import com.host.finassistant.domain.entity.User;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,14 +13,13 @@ import java.util.Optional;
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	Optional<User> findByEmail(String email);
-
 	/**
-	 * Ищем пользователей без роли 666.
+	 * Поиск пользователя по e-mail.
 	 *
-	 * @return список пользователей без роли 666.
+	 * @param email e-mail пользователя
+	 * @return пользователь.
 	 */
-	@Query("select u from User u where u.id " +
-			"not in (select ur.key.userId from UserRoles ur where ur.key.roleId = (:banList))")
-	List<User> findUsersNotInRoleList(@Param("banList") List<Long> banList);
+	@NotNull
+	Optional<User> findByEmail(@NotNull String email);
+
 }

@@ -1,61 +1,58 @@
 package com.host.finassistant.userservice;
 
-import com.host.finassistant.domain.entity.Role;
 import com.host.finassistant.domain.entity.User;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 /**
- * Пользовательский сервис.
+ * Сервис управления сущностью User.
  *
- * @author Rustam Tastimullin (tastimullin@mail.ru) created on 13.01.2023.
+ * @author Rustam Tastimullin (tastimullin@mail.ru) created on 03-Sep-23
  */
 public interface UserService {
 
 	/**
-	 * Создание пользователя (по дефолту с правами USER).
+	 * Поиск пользователя по ИД.
 	 *
-	 * @param user пользователь.
-	 * @return пользователь успешно создан.
+	 * @param userId ИД пользователя.
+	 * @return найденый пользователь.
 	 */
-	boolean createUser(User user);
+	@NotNull
+	Optional<User> findUserById(@NotNull Long userId);
 
 	/**
-	 * Редактирование пользователя.
+	 * Поиск пользователя по e-mail.
 	 *
-	 * @param user пользователь.
-	 * @param form входные данные для парсинга в пользователя.
+	 * @param email e-mail пользователя.
+	 * @return найденный пользователь.
 	 */
-	void editUser(User user, Map<String, String> form);
+	@NotNull
+	Optional<User> findUserByEmail(@NotNull String email);
 
 	/**
-	 * Удаление пользователя.
+	 * Удаление пользователя по ИД.
 	 *
-	 * @param userId ид пользователя.
+	 * @param userId ИД пользователя.
 	 */
-	void deleteUser(Long userId);
+	void deleteById(@NotNull Long userId);
 
 	/**
-	 * Поиск пользователя по email.
+	 * Поиск всех пользователей в БД.
 	 *
-	 * @param email параметр email.
-	 * @return найденный в бд пользователь.
+	 * @return список всех пользователей.
 	 */
-	User findByEmail(String email);
-
-	/**
-	 * Список всех пользователей.
-	 *
-	 * @return все пользователи из бд.
-	 */
+	@NotNull
 	List<User> findAllUsers();
 
 	/**
-	 * Список всех ролей в системе.
+	 * Сохранение передаваемого пользователя.
 	 *
-	 * @return список ролей из бд.
+	 * @param user сохраняемый пользователь.
+	 * @return сохраненный пользователь.
 	 */
-	List<Role> getRolesList();
+	@NotNull
+	User saveUser(@NotNull User user);
 
 }

@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Immutable;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -29,6 +30,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "roles")
+@Immutable
 public class Role {
 
 	@Id
