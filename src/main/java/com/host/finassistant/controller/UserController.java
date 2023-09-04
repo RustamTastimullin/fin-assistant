@@ -2,7 +2,7 @@ package com.host.finassistant.controller;
 
 import com.host.finassistant.domain.entity.Role;
 import com.host.finassistant.domain.entity.User;
-import com.host.finassistant.userservice.UserService;
+import com.host.finassistant.userservice.UserManagementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,19 +31,19 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
 
-	private final UserService userService;
+	private final UserManagementService userManagementService;
 
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERUSER')")
 	@GetMapping("all")
 	public String findAllRegisteredUsers(Model model) {
-		model.addAttribute("users", userService.findAllUsers());
+		model.addAttribute("users", userManagementService.findAllUsers());
 		return "user-service/users-list";
 	}
 
 	@PreAuthorize("hasAnyAuthority('ADMIN', 'SUPERUSER') or principal.id == #user.id")
 	@GetMapping(value = "{user}")
 	public String userEditForm(@PathVariable User user, Model model) {
-		var rolesNameList = userService.getRolesList().stream().map(Role::getName).toList();
+		var rolesNameList = userManagementService.getRolesList().stream().map(Role::getName).toList();
 		var userRoles = user.getRoles().stream()
 				.map(Role::getName)
 				.toList();
@@ -59,7 +59,7 @@ public class UserController {
 	public String editUser(
 			@RequestParam Map<String, String> form,
 			@RequestParam("userId") User user) {
-		userService.editUser(user, form);
+		userManagementService.editUser(user, form);
 		return "redirect:/about";
 	}
 
@@ -69,7 +69,7 @@ public class UserController {
 	public String deleteUser(
 			@RequestParam("userId") User user
 	) {
-		userService.deleteUser(user.getId());
+		userManagementService.deleteUser(user.getId());
 		return "redirect:/logout";
 	}
 

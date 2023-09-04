@@ -12,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -70,7 +71,7 @@ public class User implements UserDetails {
 
 	@NotNull
 	@Column(name = "password", nullable = false, length = 64)
-	@NotEmpty(message = "Password should not be empty")
+	@NotBlank(message = "Password should not be empty")
 	private String password;
 
 	@ToString.Exclude
