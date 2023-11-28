@@ -1,7 +1,7 @@
 package com.host.finassistant.parser.xml;
 
-import com.host.finassistant.domain.entity.Currency;
 import com.host.finassistant.domain.ValCurs;
+import com.host.finassistant.domain.entity.Currency;
 import com.host.finassistant.service.DateFormatter;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
