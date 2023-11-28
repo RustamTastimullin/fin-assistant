@@ -32,6 +32,8 @@
 		<jaxb.api.version>2.4.0-b180830.0359</jaxb.api.version>
 		<jaxb.core.version>4.0.2</jaxb.core.version>
 		<jaxb.impl.version>4.0.2</jaxb.impl.version>
+		<!--		HTML Scraping-->
+		<jsoup.version>1.16.1</jsoup.version>
 		<!--		tests-->
 		<mockito.core.version>5.2.0</mockito.core.version>
 		<junit.version>4.13.2</junit.version>
@@ -114,6 +116,13 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>${jaxb.impl.version}</version>
+		</dependency>
+
+		<!--		HTML content-->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${jsoup.version}</version>
 		</dependency>
 
 		<!--		test-->

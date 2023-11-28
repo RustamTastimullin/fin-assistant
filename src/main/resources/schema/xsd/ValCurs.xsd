@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="windows-1251"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 	<xs:element name="ValCurs">
 		<xs:annotation>
-			<xs:documentation>Официальные курсы валют на заданную дату, устанавливаемые ежедневно</xs:documentation>
+			<xs:documentation>РћС„РёС†РёР°Р»СЊРЅС‹Рµ РєСѓСЂСЃС‹ РІР°Р»СЋС‚ РЅР° Р·Р°РґР°РЅРЅСѓСЋ РґР°С‚Сѓ, СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРјС‹Рµ РµР¶РµРґРЅРµРІРЅРѕ</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
@@ -11,33 +11,38 @@
 						<xs:sequence>
 							<xs:element name="NumCode" type="xs:unsignedShort">
 								<xs:annotation>
-									<xs:documentation>ISO Цифр. код валюты</xs:documentation>
+									<xs:documentation>ISO Р¦РёС„СЂ. РєРѕРґ РІР°Р»СЋС‚С‹</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="CharCode" type="xs:string">
 								<xs:annotation>
-									<xs:documentation>ISO Букв. код валюты</xs:documentation>
+									<xs:documentation>ISO Р‘СѓРєРІ. РєРѕРґ РІР°Р»СЋС‚С‹</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="Nominal" type="xs:unsignedInt">
 								<xs:annotation>
-									<xs:documentation>номинал. ед</xs:documentation>
+									<xs:documentation>РЅРѕРјРёРЅР°Р». РµРґ</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="Name" type="xs:string">
 								<xs:annotation>
-									<xs:documentation>Название валюты</xs:documentation>
+									<xs:documentation>РќР°Р·РІР°РЅРёРµ РІР°Р»СЋС‚С‹</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 							<xs:element name="Value" type="xs:string">
 								<xs:annotation>
-									<xs:documentation>Значение</xs:documentation>
+									<xs:documentation>Р—РЅР°С‡РµРЅРёРµ</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="VunitRate" type="xs:string">
+								<xs:annotation>
+									<xs:documentation>РљСѓСЂСЃ Р·Р° 1 РµРґРёРЅРёС†Сѓ РІР°Р»СЋС‚С‹</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
 						<xs:attribute name="ID" type="xs:string" use="required">
 							<xs:annotation>
-								<xs:documentation>Внутренний уникальный код валюты</xs:documentation>
+								<xs:documentation>Р’РЅСѓС‚СЂРµРЅРЅРёР№ СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєРѕРґ РІР°Р»СЋС‚С‹</xs:documentation>
 							</xs:annotation>
 						</xs:attribute>
 					</xs:complexType>
@@ -45,12 +50,14 @@
 			</xs:sequence>
 			<xs:attribute name="Date" type="xs:string" use="required">
 				<xs:annotation>
-					<xs:documentation>Дата установления курса (может отличатся от запрашиваемой если на запрашиваемою дату курс не устанавливался)</xs:documentation>
+					<xs:documentation>Р”Р°С‚Р° СѓСЃС‚Р°РЅРѕРІР»РµРЅРёСЏ РєСѓСЂСЃР° (РјРѕР¶РµС‚ РѕС‚Р»РёС‡Р°С‚СЃСЏ РѕС‚ Р·Р°РїСЂР°С€РёРІР°РµРјРѕР№ РµСЃР»Рё РЅР° Р·Р°РїСЂР°С€РёРІР°РµРјРѕСЋ
+						РґР°С‚Сѓ РєСѓСЂСЃ РЅРµ СѓСЃС‚Р°РЅР°РІР»РёРІР°Р»СЃСЏ)
+					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
 			<xs:attribute name="name" type="xs:string" use="required">
 				<xs:annotation>
-					<xs:documentation>Имя документа</xs:documentation>
+					<xs:documentation>РРјСЏ РґРѕРєСѓРјРµРЅС‚Р°</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
 		</xs:complexType>
