@@ -1,8 +1,8 @@
 package com.host.finassistant;
 
-import com.host.simplehelper.dto.Result;
-import com.host.simplehelper.dto.beststocks.Item;
-import com.host.simplehelper.dto.beststocks.Response;
+import com.host.finassistant.dto.Result;
+import com.host.finassistant.dto.beststocks.Item;
+import com.host.finassistant.dto.beststocks.Response;
 import jakarta.inject.Inject;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;

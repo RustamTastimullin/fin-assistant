@@ -1,4 +1,4 @@
-package com.host.simplehelper.dto;
+package com.host.finassistant.dto;
 
 public class Result<T, E> {
 

@@ -1,4 +1,4 @@
-package com.host.simplehelper.dto.beststocks;
+package com.host.finassistant.dto.beststocks;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;

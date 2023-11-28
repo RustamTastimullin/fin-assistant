@@ -1,4 +1,4 @@
-package com.host.simplehelper;
+package com.host.finassistant;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
