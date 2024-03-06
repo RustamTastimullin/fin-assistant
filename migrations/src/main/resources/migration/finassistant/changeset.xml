@@ -1,0 +1,11 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<include file="1.0.0/master.xml" relativeToChangelogFile="true"/>
+
+	<!--	загрузка тестовых данных-->
+	<include file="1.0.0/testdata/loadTestData.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>
