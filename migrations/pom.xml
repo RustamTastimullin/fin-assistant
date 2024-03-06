@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.host.finassistant</groupId>
+		<artifactId>fin-assistant-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>migrations</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>${liquibase.version}</version>
+				<executions>
+					<execution>
+						<id>migrate-application-data</id>
+						<configuration>
+							<propertyFile>src/main/resources/migration/finassistant/liquibase.properties</propertyFile>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<changeLogFile>src/main/resources/migration/finassistant/changeset.xml</changeLogFile>
+					<promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+					<verbose>true</verbose>
+					<logging>debug</logging>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

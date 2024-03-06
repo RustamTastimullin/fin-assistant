@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+				   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<changeSet id="alter_test_roles" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from roles
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/roles_add_values.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+
+	<changeSet id="alter_test_users" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from users
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/users_add_values.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+
+	<changeSet id="alter_test_users_roles" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from users_roles
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/users_roles_add_values.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+
+	<changeSet id="alter_test_currency" author="trd">
+		<preConditions onFail="MARK_RAN">
+			<sqlCheck expectedResult="0">
+				select count(*)
+				from currency
+			</sqlCheck>
+		</preConditions>
+		<sqlFile path="sql/currency_add_data.sql" relativeToChangelogFile="true"/>
+	</changeSet>
+</databaseChangeLog>
